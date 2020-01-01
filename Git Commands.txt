@@ -1,0 +1,95 @@
+TRACKING GIT FILES
+git init: Start use verstion control. This creates a new subdirectory named .git that contains all of your necessary repository files — a Git repository skeleton.
+git status: The git status command displays the state of the working directory and the staging area.
+git add <filename>: Begin tracking a new file.
+    "add" means to move the change to the staging area. The change could be a modification to a tracked file, or it could a creation of a brand new file.
+git commit: Commit the file. It opens up a editor to type a commit message.
+    :x!: Exit the editor.
+git commit -m "<message>": Type commit message inline.
+git diff: See what has changed in the file.
+    git diff --cached (or git diff -- staged for versions 1.61 and above): See the difference between the last commit and the staging area.
+git commit -a -m "<message>": the –a option to the git commit makes Git automatically stage every file that is already tracked before doing the commit, letting you skip the git add part.
+
+CREATING FILES WITH TEXT
+echo '<text>' >> <filename>: Create a file that contains text.
+
+REMOVING FILES
+git rm <filename>: Remove file using git.
+    if you remove file from the working directory, you still need to run the "git rn <filename>" command afterwards.
+git rm --cached <filename>: Remove file from the staging area.
+
+///////////////////////////////////////////////////////////////////////////////////////////////////
+
+HISTORY
+git log: View the history of commit
+git log -p: shows the differences introduced in each commit
+git log -<int>: limit the output to only the last <int> entries
+git log -p --word-diff: get the word difference instead of the line difference
+    --word-diff option can be used when appended with -p
+
+FORMAT OPTIONS
+git log --pretty=format"<option>"
+  ____________________________________________________________________   
+  |  Option  |   Description                                         |
+  |    %H    |   Commit hash                                         |
+  |    %h    |   Abbreviated commit hash                             |
+  |    %T    |   Tree hash                                           |
+  |    %t    |   Abbreviated tree hash                               |
+  |    %P    |   Parent hashes                                       |
+  |    %p    |   Abbreviated parent hashes                           |
+  |    %an   |   Author name                                         |
+  |    %ae   |   Author e-mail                                       |
+  |    %ad   |   Author date (format respects the --date= option)    |
+  |    %ar   |   Author date, relative                               |
+  |    %cn   |   Committer name                                      |
+  |    %ce   |   Committer email                                     |
+  |    %cd   |   Committer date                                      |
+  |    %cr   |   Committer date, relative                            |
+  |    %s    |   Subject                                             |
+  |__________|_______________________________________________________|
+
+GIT LOG OPTIONS
+   _____________________________________________________________________________________________________________________________________
+  |    Option           |   Description                                                                                                 |
+  |    --graph          |   show a graph of branch and merge history                                                                    |
+  |    --shortstat      |   Display only the changed/insertions/deletions line from the --stat command.                                 |
+  |    --name-only      |   Show the list of files modified after the commit information.                                               |
+  |    --name-status    |   Show the list of files affected with added/modified/deleted information as well.                            |
+  |    --abbrev-commit  |   Show only the first few characters of the SHA-1 checksum instead of all 40.                                 |
+  |    --relative-date  |   Display the date in a relative format (for example, “2 weeks ago”) instead of using the full date format.   |
+  |_____________________|_______________________________________________________________________________________________________________|
+
+LIMITING LOG OUTPUT
+  ___________________________________________________________________________________________________
+  |    Option                       |   Description                                                 |
+  |    --since=<int>.weeks          |   get the list of commits made in last <int> weeks            |
+  |                                 |     (make sure to include the .)                              |
+  |      --since="<dd>/<mm>/<yyyy>" |     get the list of commits made since <dd>/<mm>/<yyyy>       |
+  |    --author                     |   only commits by the stated author will be shown             |
+  |    --grep                       |   only commits containing the stated keywords will be shown   |
+  |    --after                      |   only commits after the date will be shown                   |
+  |    --before                     |   only commits before the date will be shown                  |
+  |_________________________________|_______________________________________________________________|
+
+UNDOING THINGS
+git commit --amend: undo commit
+
+UNSTAGING A STAGED FILE
+git reset HEAD <filename>: unstage <filename> from the staging area
+
+UNMODIFYING A MODIFIED FILE
+git checkout -- <filename>: this will overwrite the <filename> and return it to the state it was at the last commit
+
+REVERTING TO A PREVIOUS COMMIT
+git reset --hard <commit>:
+
+LIGHTWEIGHT TAG
+git tag <checksum>: creates a simple tag with just the chekcsum
+    a checksum is a string of ints and chars to check data for errors. One common use of this in git is to mark release points e.g. v1.0, v1.3 etc
+
+ANNOTATED TAG
+git tag -a <checksum> -m <message>: annotated tag are checksummed; contain the tagger name, e-mail, and date and have a tagging message.
+
+TAGGING LATER
+git tag -a <checksum> -m <message> <commit checksum>: to tag any previous commit, simply put the <commit checksum> at the end of the commond
+    <commit checksum>: can be retrieved by using the [git log --pretty=oneline]
